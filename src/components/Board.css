@@ -1,0 +1,6 @@
+.Board {
+    width: 100vw;
+    display: flex;
+    padding: 3em;
+    margin: auto;
+}

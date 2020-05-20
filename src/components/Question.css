@@ -1,0 +1,18 @@
+.Question {
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 2em;
+}
+
+p {
+    font-size: 2em;
+}
+
+button {
+    border: 2px solid black;
+    font-size: 1.5em;
+}
