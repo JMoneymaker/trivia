@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Question.css';
+import styles from './CategoryItem.css';
 
 const CategoryItem = ({ value, question, answer, category }) => {
     
   return (
-    <div className={styles.Question}>
+    <div className={styles.CategoryItem}>
       <h1>{category}</h1>
       <h1>{value}</h1>
       <p>{question}</p>

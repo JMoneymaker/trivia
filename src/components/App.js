@@ -1,10 +1,12 @@
 import React from 'react';
-import Board from './Board';
+// import Board from './Board';
+import Question from './Question';
 
 export default function App() {
   return (
     <>
-      <Board />
+      {/* <Board /> */}
+      <Question />
     </>
   );
 }

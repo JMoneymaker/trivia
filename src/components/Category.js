@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 const Category = ({ categoryId }) => {
   const [categoryArray, setCategoryArray] = useState([]);
 
-
   useEffect(() => {
     getCategory(categoryId)
       .then(res => setCategoryArray(res));
@@ -17,7 +16,13 @@ const Category = ({ categoryId }) => {
   return (
     <>
       <ul>
-        {aQuestions.map((question, i) => <CategoryItem key={i} question={question.question} value={question.value} answer={question.answer} category={question.category.title} />)};
+        {aQuestions.map((question, i) => 
+          <CategoryItem key={i} 
+            question={question.question} 
+            value={question.value} 
+            answer={question.answer} 
+            category={question.category.title} 
+          />)};
       </ul>
     </>
   );

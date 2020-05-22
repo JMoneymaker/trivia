@@ -26,6 +26,7 @@
   "dependencies": {
     "babel": "^6.23.0",
     "cors": "^2.8.5",
+    "fuzzy-matching": "^0.4.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
