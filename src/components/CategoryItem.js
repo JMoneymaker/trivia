@@ -5,12 +5,12 @@ import styles from './CategoryItem.css';
 const CategoryItem = ({ value, question, answer, category }) => {
     
   return (
-    <div className={styles.CategoryItem}>
+    <li className={styles.CategoryItem}>
       <h1>{category}</h1>
       <h1>{value}</h1>
       <p>{question}</p>
       <p>{answer}</p>
-    </div>
+    </li>
   );
 };
 

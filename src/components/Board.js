@@ -6,12 +6,12 @@ const Board = () => {
   return ( 
     <>
       <section className={styles.Board}>
-        <Category categoryId={'5000'} />;
-        <Category categoryId={'2000'} />;
-        <Category categoryId={'1000'} />;
-        <Category categoryId={'100'} />;
-        <Category categoryId={'300'} />;
-        <Category categoryId={'320'} />;
+        <Category categoryId={0} />;
+        <Category categoryId={1} />;
+        <Category categoryId={2} />;
+        <Category categoryId={3} />;
+        <Category categoryId={4} />;
+        <Category categoryId={5} />;
       </section>
     </>
   );

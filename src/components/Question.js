@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { getRandomQuestion } from '../services/getTrivia';
 import styles from './Question.css';
+import useCategoryIds from '../hooks/useCategoryIds';
+import useCategories from '../hooks/useCategories';
 const FuzzyMatching = require('fuzzy-matching');
 
 const Question = () => {
+  const categoryIds = useCategoryIds();
+  const questions = useCategories(11496);
   const [question, setQuestion] = useState('');
   const [category, setCategory] = useState('');
   const [value, setValue] = useState('');
   const [answer, setAnswer] = useState('');
   const [userAnswer, setUserAnswer] = useState('');
   const [tally, setTally] = useState({ correct: 0, incorrect: 0 });
-  const [displayAnswer, setDisplayAnswer] = useState(true);
+  const [displayAnswer, setDisplayAnswer] = useState(false);
   const [correct, setCorrect] = useState(false);
   const [score, setScore] = useState(0);
   const fm = new FuzzyMatching([answer]);
+
+  console.log(categoryIds);
+  console.log(questions);
   
 
   useEffect(() => {
-    setDisplayAnswer(true);
+    setDisplayAnswer(false);
     setCorrect(false);
     getRandomQuestion()
       .then(res => {
