@@ -1,19 +1,18 @@
 import { useState, useEffect } from 'react';
-import { getQuestionsByCategory } from '../services/getTrivia';
-// import useCategoryIds from '../hooks/useCategoryIds';
+import { getCategory } from '../services/jservice';
+import useCategoryIds from '../hooks/useCategoryIds';
 
-const useCategories = (categoryId) => {
-//   const categoryIds = useCategoryIds([]);
-  const [questions, setQuestions] = useState([]);
-
-  //   console.log(categoryIds); //this is working
+const useCategories = () => {
+  const categoryIds = useCategoryIds();
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    getQuestionsByCategory(categoryId)
-      .then(res  => setQuestions(res));
-  }, []);
+    Promise.all(categoryIds.map(({ categoryId }) => (
+      getCategory(categoryId)
+    ))).then(res  => setCategories(res));
+  }, [categoryIds]);
   
-  return questions ;
+  return categories;
 };
 
 export default useCategories;

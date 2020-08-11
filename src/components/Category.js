@@ -1,22 +1,28 @@
 import React from 'react';
-import CategoryItem from './CategoryItem';
+import Question from './Question';
+import PropTypes from 'prop-types';
+import styles from './Category.css';
 
-const Category = (questions) => {
-
+const Category = ({ questions }) => {
+  
   return (
     <>
-      <ul>
-        {questions.map((question, i) => 
-          <CategoryItem key={i} 
+      <ul className={styles.Category}>
+        <li>Category</li>
+        {questions.map(question => 
+          <Question key={question.id} 
             question={question.question} 
             value={question.value} 
-            answer={question.answer} 
+            answer={question.answer}
             category={question.category.title} 
-          />)};
+          />)}
       </ul>
     </>
   );
 };
 
+Category.propTypes = {
+  questions: PropTypes.array.isRequired
+};
 
 export default Category;
