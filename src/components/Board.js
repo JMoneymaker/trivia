@@ -8,16 +8,10 @@ import styles from './Board.css';
 const Board = () => {
   const categories = useSelector(getCategories);
 
-  const categoryElements = categories.map(category => (
-    <li key={category._id}>
-      <Category questions={category.slice(0, 5)} />
-    </li>
-  ));
-
   return ( 
     <>
       <section className={styles.Board}>
-        {categoryElements}
+        {categories.map(category => <Category key={category.id}questions={category} />)}
       </section>
     </>
   );

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styles from './Question.css';
 
 const Question = ({ question, value, answer, category }) => {
-  console.log(question, answer, category);
   
   return (
     <li className={styles.Question}>

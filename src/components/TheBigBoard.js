@@ -12,7 +12,7 @@ const TheBigBoard = () => {
 
   useEffect(() => {
     dispatch(setCategoriesLoading());
-    fetchCategoryIds(200)
+    fetchCategoryIds(400)
       .then(categoryIds => {
         dispatch(setCategoryIds(categoryIds));
         return categoryIds;
