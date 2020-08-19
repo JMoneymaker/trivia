@@ -1,28 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Board from './Board';
-import { fetchCategoryById, fetchCategoryIds } from '../services/jservice';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCategories, setCategoriesLoading, setCategoryIds } from '../actions/gameActions';
+// import { fetchCategoryById, fetchCategoryIds } from '../services/jservice';
+import { useSelector } from 'react-redux';
+// import { setCategories, setCategoriesLoading, setCategoryIds } from '../actions/gameActions';
 import { getCategoriesLoading } from '../selectors/gameSelectors';
 import styles from './Question.css';
+import useCategories from '../hooks/useCategories';
+import { makeGameRounds } from '../data/getRandomCategoryIds';
 
 const TheBigBoard = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const categories = useCategories();
+  const [singleJeopardy, doubleJeopardy] = makeGameRounds(categories);
   const loading = useSelector(getCategoriesLoading);
-
-  useEffect(() => {
-    dispatch(setCategoriesLoading());
-    fetchCategoryIds(400)
-      .then(categoryIds => {
-        dispatch(setCategoryIds(categoryIds));
-        return categoryIds;
-      })
-      .then(categoryIds => {
-        return Promise.all(categoryIds.map(categoryId => (
-          fetchCategoryById(categoryId)
-        ))).then(res  => dispatch(setCategories(res)));
-      });
-  }, []);
 
   if(loading) return <h1>Loading...</h1>;
 
@@ -38,7 +28,10 @@ const TheBigBoard = () => {
       <div className={styles.cardQuestion}>
         <div className={styles.leftBar}></div>
         <div className={styles.questionFrame}>
-          <Board />
+          <Board 
+            singleJeopardy={singleJeopardy}
+            doubleJeopardy={doubleJeopardy}
+          />
         </div>
         <div className={styles.rightBar}></div>
       </div>

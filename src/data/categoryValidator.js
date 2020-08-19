@@ -1,7 +1,5 @@
-const categoryFetch = require('./categoryFetch');
-
 const removeBadQuestions = array => {
-  return array
+  return array.flat()
     .filter(question => question.value && question.question !== '' && !question.invalid_count);
 };
 
@@ -34,6 +32,4 @@ const validateCategories = array => {
   return sortByQuestionValueAndAirdate(completeCategories);
 };
 
-// console.log(validateCategories(categoryFetch));
-
-module.exports = validateCategories;
+export default validateCategories;

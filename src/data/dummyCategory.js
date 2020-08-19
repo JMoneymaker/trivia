@@ -1,4 +1,4 @@
-const categoryFetch = [
+const dummyCategory = [
   {
     id: 31428,
     answer: 'Burt Reynolds',
@@ -761,4 +761,4 @@ const categoryFetch = [
   }
 ];
 
-module.exports = categoryFetch;
+export default dummyCategory;

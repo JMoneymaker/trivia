@@ -8,7 +8,7 @@ const Category = ({ questions }) => {
   return (
     <>
       <ul className={styles.Category}>
-        <li>Category</li>
+        <li>{questions[0].category.title}</li>
         {questions.map(question => 
           <Question key={question.id} 
             question={question.question} 

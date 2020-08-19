@@ -4,6 +4,7 @@ import styles from './Question.css';
 
 const Question = ({ question, value, answer, category }) => {
   
+  console.log(question, value, answer, category);
   return (
     <li className={styles.Question}>
       <h1>{value}</h1>

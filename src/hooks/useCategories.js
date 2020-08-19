@@ -1,21 +1,19 @@
 import { useState, useEffect } from 'react';
-import { getCategory } from '../services/jservice';
-import useCategoryIds from '../hooks/useCategoryIds';
+import { fetchCategoryById } from '../services/jservice';
+import { getRandomCategoryIds } from '../data/getRandomCategoryIds';
+import validateCategories from '../data/categoryValidator';
 
 const useCategories = () => {
-  const categoryIds = useCategoryIds();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    Promise.all(categoryIds.map(({ categoryId }) => (
-      getCategory(categoryId)
-    ))).then(res  => setCategories(res));
-  }, [categoryIds]);
+    const categoryIds = getRandomCategoryIds();
+    Promise.all(categoryIds.map(categoryId => (
+      fetchCategoryById(categoryId))))
+      .then(res  => setCategories(validateCategories(res)));
+  }, []);
   
   return categories;
 };
 
 export default useCategories;
-
-// 18400
-
