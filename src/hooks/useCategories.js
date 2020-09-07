@@ -17,3 +17,11 @@ const useCategories = () => {
 };
 
 export default useCategories;
+
+
+//make a while loop instead of the Promise.all
+// while(categories.length < 6)
+// get random index
+// fetch by random id
+// validate result and check that category Id is not in categories
+// set categories

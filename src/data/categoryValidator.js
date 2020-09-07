@@ -1,5 +1,5 @@
 const removeBadQuestions = array => {
-  return array.flat()
+  return array
     .filter(question => question.value && question.question !== '' && !question.invalid_count);
 };
 
@@ -25,11 +25,11 @@ const sortByQuestionValueAndAirdate = categories => {
   }).sort((a, b) => (a.airdate > b.airdate) ? 1 : -1);
 };
 
-const validateCategories = array => {
+const validateCategory = array => {
   const goodQuestionsArray = removeBadQuestions(array);
   const categoryGroups = groupByAirdate(goodQuestionsArray, 'airdate');
   const completeCategories = removeIncompleteCategories(categoryGroups);
   return sortByQuestionValueAndAirdate(completeCategories);
 };
 
-export default validateCategories;
+export default validateCategory;

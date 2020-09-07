@@ -30,6 +30,7 @@
     "fuzzy-matching": "^0.4.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-modal": "^3.11.2",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "superagent": "^6.0.0"
