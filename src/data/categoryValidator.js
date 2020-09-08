@@ -29,7 +29,9 @@ const validateCategory = array => {
   const goodQuestionsArray = removeBadQuestions(array);
   const categoryGroups = groupByAirdate(goodQuestionsArray, 'airdate');
   const completeCategories = removeIncompleteCategories(categoryGroups);
-  return sortByQuestionValueAndAirdate(completeCategories);
+  const mostRecent = sortByQuestionValueAndAirdate(completeCategories);
+  console.log(mostRecent);
+  return mostRecent[0];
 };
 
 export default validateCategory;

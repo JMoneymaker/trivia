@@ -5,28 +5,27 @@ import validateCategory from '../data/categoryValidator';
 
 const useSingleJeopardy = () => {
   const [singleJeopardy, setSingleJeopardy] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [singleJeopardyCategories, setSingleJeopardyCategories] = useState([]);
+  const [categoryComplete, setCategoryComplete] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  let singleJeopardyArray = [];
   
   const getSingleJeopardy = () => {
     setLoading(true);
     const categoryId = getRandomCategoryId();
-
     fetchCategoryById(categoryId)
       .then(validateCategory)
-      .then(setSingleJeopardyCategories(categoryId))
-      .then(category => setSingleJeopardy(...singleJeopardy, category))
-      .finally(setLoading(false))
+      .then(category => category && singleJeopardyArray.push(category))
+      .then(() => singleJeopardyArray.length === 6 ? setCategoryComplete(true) : getSingleJeopardy())
+      .then(setSingleJeopardy(singleJeopardyArray))
+      .finally(() => setLoading(false))
       .catch();
-
   };
-
-  console.log(singleJeopardy, '5');
 
   useEffect(getSingleJeopardy, []);
   // I actually want this to trigger when the larger game state changes...
   
-  return [loading, singleJeopardy, singleJeopardyCategories];
+  return [loading, singleJeopardy, categoryComplete];
 
 };
 
