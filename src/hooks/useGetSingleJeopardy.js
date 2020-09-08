@@ -1,36 +1,36 @@
 import { useState, useEffect } from 'react';
 import { fetchCategoryById } from '../services/jservice';
-import { getRandomCategoryId } from '../data/getRandomCategoryIds';
+import { getRandomCategoryId, makeGameByRound } from '../data/getRandomCategoryIds';
 import validateCategory from '../data/categoryValidator';
 
-const useSingleJeopardy = () => {
-  const [singleJeopardy, setSingleJeopardy] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [singleJeopardyCategories, setSingleJeopardyCategories] = useState([]);
+const useJeopardyRound = (round = 'single') => {
+  const [jeopardyRound, setJeopardyRound] = useState([]);
+  const [categoryComplete, setCategoryComplete] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  let jeopardyRoundArray = [];
   
-  const getSingleJeopardy = () => {
+  const getJeopardyRound = () => {
     setLoading(true);
     const categoryId = getRandomCategoryId();
-
     fetchCategoryById(categoryId)
       .then(validateCategory)
-      .then(setSingleJeopardyCategories(categoryId))
-      .then(category => setSingleJeopardy(...singleJeopardy, category))
-      .finally(setLoading(false))
+      .then(category => category && makeGameByRound(round, category))
+      .then(category => category && jeopardyRoundArray.push(category))
+      .then(() => jeopardyRoundArray.length === 6 ? setCategoryComplete(true) : getJeopardyRound())
+      .then(() => setLoading(false))
+      .finally(() => setJeopardyRound(jeopardyRoundArray))
       .catch();
-
   };
 
-  console.log(singleJeopardy, '5');
-
-  useEffect(getSingleJeopardy, []);
+  useEffect(getJeopardyRound, [round]);
   // I actually want this to trigger when the larger game state changes...
   
-  return [loading, singleJeopardy, singleJeopardyCategories];
+  return [loading, jeopardyRound, categoryComplete];
 
 };
 
-export default useSingleJeopardy;
+export default useJeopardyRound;
 
 
 //make a while loop instead of the Promise.all

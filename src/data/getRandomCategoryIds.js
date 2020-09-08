@@ -25,13 +25,13 @@ export const getRandomCategoryIds = () => {
   return indexArray.map(index => categoryIds[index]);
 };
 
-export const makeGameRounds = array => {
-  let singleJeopardy = [];
-  let doubleJeopardy = [];
-  array.forEach(category => {
-    if(category[0].value === 100) singleJeopardy.push(category);
-    if(category[0].value === 200) doubleJeopardy.push(category);
-  });
-  return [singleJeopardy, doubleJeopardy];
+export const makeGameByRound = (round, category) => {
+  if(round === 'single'){
+    if(category[0].value === 100) return category;
+  } else if(round === 'double'){
+    if(category[0].value === 200) return category;
+  } else {
+    return null;
+  }
 };
 
