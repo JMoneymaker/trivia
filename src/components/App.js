@@ -1,10 +1,6 @@
 import React from 'react';
-import Board from './Board';
+import TheBigBoard from './TheBigBoard';
 
 export default function App() {
-  return (
-    <>
-      <Board />
-    </>
-  );
+  return <TheBigBoard />;
 }
