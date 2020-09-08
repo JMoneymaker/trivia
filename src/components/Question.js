@@ -46,6 +46,7 @@ const Question = ({ question, value, answer, category }) => {
  
         <h2 ref={_subtitle => (subtitle = _subtitle)}>{category}{value}</h2>
         <div>{question}</div>
+        <div>{answer}</div>
         <form>
           <input placeholder={'Your answer here...'}/>
           <button>answer</button>
@@ -57,13 +58,11 @@ const Question = ({ question, value, answer, category }) => {
   );
 };
 
-
-
-// Question.propTypes = {
-//   question: PropTypes.string.isRequired,
-//   value: PropTypes.number.isRequired,
-//   answer: PropTypes.string.isRequired,
-//   category: PropTypes.string.isRequired
-// };
+Question.propTypes = {
+  question: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  answer: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired
+};
 
 export default Question;
