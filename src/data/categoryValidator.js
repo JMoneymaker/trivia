@@ -1,5 +1,5 @@
 const removeBadQuestions = array => {
-  return array
+  return array.flat()
     .filter(question => question.value && question.question !== '' && !question.invalid_count);
 };
 

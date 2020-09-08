@@ -12,10 +12,11 @@ import useSingleJeopardy from '../hooks/useGetSingleJeopardy';
 const TheBigBoard = () => {
   // const dispatch = useDispatch();
   // const categories = useCategories();
-  const [singleJeopardy] = useSingleJeopardy();
-  const loading = useSelector(getCategoriesLoading);
+  const [loading, singleJeopardy, singleJeopardyCategories] = useSingleJeopardy();
+  // const loading = useSelector(getCategoriesLoading);
 
-  console.log(singleJeopardy);
+  console.log(singleJeopardy, 'singleJeopardy');
+  console.log(singleJeopardyCategories, 'singleCategories');
   if(loading) return <h1>Loading...</h1>;
 
   return (

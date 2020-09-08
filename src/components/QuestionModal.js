@@ -14,56 +14,56 @@ const customStyles = {
   }
 };
 
-let subtitle;
-
-const Question = ({ question, value, answer, category }) => {
+const QuestionModal = ({ question, value, answer, category, isOpen}) => {
+  let subtitle;
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
     setModalIsOpen(true);
   };
 
-  const afterOpenModal = () => {
+  function afterOpenModal() {
     // references are now sync'd and can be accessed.
     subtitle.style.color = '#f00';
-  };
+  }
 
   const closeModal = () => {
     setModalIsOpen(false);
   };
   
+  console.log(question, value, answer, category);
   return (
-    <>
-      <li className={styles.Question} onClick={openModal}>{value}</li>
-      <Modal
-        isOpen={modalIsOpen}
+
+    <li itemID={'modal'} className={styles.Question} onClick={openModal}>
+      <h1>{value}</h1>
+
+      <Modal 
+        isOpen={isOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Example Modal"
-        ariaHideApp={false}
       >
- 
-        <h2 ref={_subtitle => (subtitle = _subtitle)}>{category}{value}</h2>
-        <div>{question}</div>
+        <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2>
+        <button onClick={closeModal}>close</button>
+        <div>I am a modal</div>
         <form>
-          <input placeholder={'Your answer here...'}/>
+          <input />
           <button>answer</button>
           <button>pass</button>
-          <button onClick={closeModal}>close</button>
         </form>
       </Modal>
-    </>
+    </li>
   );
 };
 
 
 
-// Question.propTypes = {
-//   question: PropTypes.string.isRequired,
-//   value: PropTypes.number.isRequired,
-//   answer: PropTypes.string.isRequired,
-//   category: PropTypes.string.isRequired
-// };
+QuestionModal.propTypes = {
+  question: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  answer: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired
+};
 
-export default Question;
+export default QuestionModal;
