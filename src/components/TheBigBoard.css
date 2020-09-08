@@ -1,0 +1,146 @@
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0A0B7B;
+}
+
+.TheBigBoard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #F3F3FD;
+    background-color: #0A0B7B;
+}
+
+@media only screen and (min-width: 350px) {
+    .TheBigBoard {
+        height: 70vh;
+        width: 60vw;
+        padding: 12px;
+    };
+}
+
+@media only screen and (min-width: 750px) {
+    .TheBigBoard {
+        height: 80vh;
+        width: 60vw;
+        padding: 12px;
+    };
+}
+
+.boardHeader {
+    width: 100%;
+    height: 10vh;
+    background:  repeating-linear-gradient(
+        to bottom,
+        #B08153,
+        #B08153 15px,
+        #381D12 15px,
+        #381D12 20px
+      );
+}
+
+.statsContainer {
+    height: 100%;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.score {
+    background-color:#0E0196;
+    -moz-box-shadow: inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow: inset 0 0 10px #000000;
+    padding: .35em .75em;
+    height: 47px;
+    font-size: 3em;
+    color: #D7A04B;
+    font-family: 'Squada One', cursive;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (min-width: 350px) {
+    .score {
+        font-size: 1.5em;
+    };
+}
+
+@media only screen and (min-width: 350px) {
+    .score {
+        font-size: 1.5em;
+    };
+}
+
+.boardMiddle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.leftBar {
+    width: 2.5vw;
+    height: 45vh;
+    border: .75em solid #2961F4;
+    float: left;
+    margin-left: 2em;
+    align-self: center;
+    background:  repeating-linear-gradient(
+        to top,
+        #B57143,
+        #B57143 25px,
+        #342A6F 25px,
+        #342A6F 30px
+      );
+}
+
+.rightBar {
+    width: 2.5vw;
+    height: 45vh;
+    border: .75em solid #2961F4;
+    float: right;
+    margin-right: 2em;
+    align-self: center;
+    background:  repeating-linear-gradient(
+        to top,
+        #B57143,
+        #B57143 25px,
+        #342A6F 25px,
+        #342A6F 30px
+      );
+}
+
+.categoryGridFrame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 42vw;
+    margin: auto;
+    height: 42vh;
+    border: 1.5em solid black;
+    -moz-box-shadow: inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow: inset 0 0 10px #000000;
+    background-color: #0E0196;
+}
+
+.boardFooter {
+    width: 100%;
+    height: 11vh;
+    background:  repeating-linear-gradient(
+        to bottom,
+        #222EFB,
+        #222EFB 15px,
+        #181F55 15px,
+        #181F55 20px
+      );
+}

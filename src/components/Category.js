@@ -7,8 +7,8 @@ const Category = ({ questions }) => {
   
   return (
     <>
-      <ul className={styles.Category}>
-        <li>{questions[0].category.title}</li>
+      <ul className={styles.CategoryGrid}>
+        <li className={styles.categoryTitle}>{questions[0].category.title}</li>
         {questions.map(question => 
           <Question key={question.id} 
             question={question.question} 

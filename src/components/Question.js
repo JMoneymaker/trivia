@@ -3,14 +3,17 @@ import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 import styles from './Question.css';
 
-const customStyles = {
+const modalStyles = {
   content : {
     top                   : '50%',
     left                  : '50%',
     right                 : 'auto',
     bottom                : 'auto',
+    width                 : '40%',
+    height                : '40%',
     marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+    transform             : 'translate(-50%, -50%)',
+    backgroundColor       : '#0A0B7B'
   }
 };
 
@@ -25,7 +28,7 @@ const Question = ({ question, value, answer, category }) => {
 
   const afterOpenModal = () => {
     // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00';
+    subtitle.style.color = '#D7A04B';
   };
 
   const closeModal = () => {
@@ -39,19 +42,22 @@ const Question = ({ question, value, answer, category }) => {
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
+        style={modalStyles}
+        contentLabel="Question"
         ariaHideApp={false}
       >
- 
-        <h2 ref={_subtitle => (subtitle = _subtitle)}>{category}{value}</h2>
-        <div>{question}</div>
-        <div>{answer}</div>
-        <form>
+        <h2 ref={_subtitle => (subtitle = _subtitle)}>{value}</h2>
+        <div className={styles.questionFrame}>
+          <h2 className={styles.modalCategory}>{category}</h2>
+          <p className={styles.modalQuestion}>{question}</p>
+          <div className={styles.modalAnswer}>{answer}</div>
+        </div>
+        <form className={styles.modalForm}>
           <input placeholder={'Your answer here...'}/>
-          <button>answer</button>
-          <button>pass</button>
-          <button onClick={closeModal}>close</button>
+          <section className={styles.formButtons}>
+            <button className={styles.submitButton}>answer</button>
+            <button className={styles.passButton} onClick={closeModal}>pass</button>
+          </section>
         </form>
       </Modal>
     </>
