@@ -11,3 +11,5 @@ https://jservice.io/categories/5000
     background-repeat: no-repeat;
     background-position: center;
 
+Dependencies
+react-modal
