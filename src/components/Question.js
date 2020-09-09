@@ -16,19 +16,24 @@ const modalStyles = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
     backgroundColor       : '#0A0B7B'
-  }
+  },
+
+  overlay: {
+    backgroundColor       : ''
+  } 
 };
 
 let subtitle;
 
+
 const Question = ({ question, value, answer, category }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [questionDisabled, setQuestionDisabled] = useState(false);
   const [userAnswer, setUserAnswer] = useState('');
   const [correct, setCorrect] = useState(false);
   const [displayAnswer, setDisplayAnswer] = useState(false);
   const { score, setScore } = useContext(GameContext);
   const fm = new FuzzyMatching([answer]);
-  const [questionDisabled, setQuestionDisabled] = useState(false);
 
   const openModal = () => {
     setModalIsOpen(true);
