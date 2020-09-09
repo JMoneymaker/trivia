@@ -7,13 +7,12 @@ import { GameContext } from '../hooks/useGameContext';
 
 const modalStyles = {
   content : {
-    top                   : '50%',
+    top                   : '49.65%',
     left                  : '50%',
     right                 : 'auto',
     bottom                : 'auto',
     width                 : '40%',
     height                : '40%',
-    marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
     backgroundColor       : '#0A0B7B'
   },
@@ -31,6 +30,8 @@ const Question = ({ question, value, answer, category }) => {
   const [questionDisabled, setQuestionDisabled] = useState(false);
   const [userAnswer, setUserAnswer] = useState('');
   const [correct, setCorrect] = useState(false);
+  const [answered, setAnswered] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [displayAnswer, setDisplayAnswer] = useState(false);
   const { score, setScore } = useContext(GameContext);
   const fm = new FuzzyMatching([answer]);
@@ -52,6 +53,8 @@ const Question = ({ question, value, answer, category }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserAnswer(e.target.value);
+    setIsDisabled(true);
+    setAnswered(true);
     const compare = fm.get(userAnswer).value;
     if(compare === answer){
       setCorrect(true);
@@ -80,21 +83,23 @@ const Question = ({ question, value, answer, category }) => {
       //need to get this working
       ariaHideApp={false}
     >
-      <h2 ref={_subtitle => (subtitle = _subtitle)}>{value}</h2>
-      <div className={styles.questionFrame}>
+      <section className={styles.modalHeader}>          
+        <h2 className={styles.modalValue}ref={_subtitle => (subtitle = _subtitle)}>{value}</h2>
         <h2 className={styles.modalCategory}>{category}</h2>
+      </section>
+      <div className={styles.questionFrame}>
         <p className={styles.modalQuestion}>{question}</p>
-        <p className={styles.answer}>{displayAnswer ? answer : ''}<span>{correct ? ' ✓' : ''}</span></p>
+        <p className={styles.modalAnswer}>{displayAnswer ? answer : ''}<span>{correct ? ' ✓ ' : ''}</span></p>
       </div>
       <form onSubmit={handleSubmit} className={styles.modalForm}>
         <input 
-          placeholder={'Your answer here...'} 
+          placeholder={'Your answer...'} 
           value={userAnswer || ''} 
           onChange={handleChange} />
-        <section className={styles.formButtons}>
-          <button className={styles.submitButton}>answer</button>
-          <button className={styles.passButton} onClick={closeModal}>pass</button>
-        </section>
+        <button className={styles.submitButton} disabled={isDisabled}>
+          <div className={styles.thumbBobber}></div>
+        </button>
+        <button className={styles.nextButton} onClick={closeModal}>{answered ? 'next' : 'pass'}</button>
       </form>
     </Modal>
     </>
