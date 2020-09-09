@@ -1,14 +1,6 @@
 import React from 'react';
-// import Board from './Board';
-import Question from './Question';
-// import Category from './Category';
+import TheBigBoard from './TheBigBoard';
 
 export default function App() {
-  return (
-    <>
-      {/* <Board /> */}
-      <Question />
-      {/* <Category /> */}
-    </>
-  );
+  return <TheBigBoard />;
 }

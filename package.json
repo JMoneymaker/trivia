@@ -26,12 +26,19 @@
   "dependencies": {
     "babel": "^6.23.0",
     "cors": "^2.8.5",
+    "fs": "0.0.1-security",
     "fuzzy-matching": "^0.4.3",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-jss": "^10.4.0",
+    "react-modal": "^3.11.2",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
+    "superagent": "^6.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
+    "@babel/node": "^7.10.5",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",

@@ -1,20 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+// import { useSelector } from 'react-redux';
+// import { getCategories } from '../selectors/gameSelectors';
 import Category from './Category';
 import styles from './Board.css';
 
-const Board = () => {
+
+const Board = ({ roundQuestions }) => {
+
   return ( 
     <>
       <section className={styles.Board}>
-        <Category categoryId={0} />;
-        <Category categoryId={1} />;
-        <Category categoryId={2} />;
-        <Category categoryId={3} />;
-        <Category categoryId={4} />;
-        <Category categoryId={5} />;
+        { 
+          roundQuestions.map((categoryArray, i) => <Category key={i}questions={categoryArray} />) 
+        }
       </section>
     </>
   );
+};
+
+Board.propTypes = {
+  roundQuestions: PropTypes.array.isRequired,
 };
 
 export default Board;

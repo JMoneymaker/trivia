@@ -1,51 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { getRandomQuestion } from '../services/getTrivia';
-import styles from './Question.css';
-import useCategoryIds from '../hooks/useCategoryIds';
-import useCategories from '../hooks/useCategories';
+import React, { useState, useContext } from 'react';
+import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 const FuzzyMatching = require('fuzzy-matching');
+import styles from './Question.css';
+import { GameContext } from '../hooks/useGameContext';
 
-const Question = () => {
-  const categoryIds = useCategoryIds();
-  const questions = useCategories(11496);
-  const [question, setQuestion] = useState('');
-  const [category, setCategory] = useState('');
-  const [value, setValue] = useState('');
-  const [answer, setAnswer] = useState('');
+const modalStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    width                 : '40%',
+    height                : '40%',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)',
+    backgroundColor       : '#0A0B7B'
+  }
+};
+
+let subtitle;
+
+const Question = ({ question, value, answer, category }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [userAnswer, setUserAnswer] = useState('');
-  const [tally, setTally] = useState({ correct: 0, incorrect: 0 });
-  const [displayAnswer, setDisplayAnswer] = useState(false);
   const [correct, setCorrect] = useState(false);
-  const [score, setScore] = useState(0);
+  const [displayAnswer, setDisplayAnswer] = useState(false);
+  const { score, setScore } = useContext(GameContext);
   const fm = new FuzzyMatching([answer]);
+  const [questionDisabled, setQuestionDisabled] = useState(false);
 
-  console.log(categoryIds);
-  console.log(questions);
-  
+  const openModal = () => {
+    setModalIsOpen(true);
+    setQuestionDisabled(true);
+  };
 
-  useEffect(() => {
-    setDisplayAnswer(false);
-    setCorrect(false);
-    getRandomQuestion()
-      .then(res => {
-        setQuestion(res[0].question.toUpperCase());
-        setCategory(res[0].category.title.toUpperCase());
-        setValue(res[0].value);
-        setAnswer(res[0].answer);
-      });
-  }, []);
+  const afterOpenModal = () => {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = '#D7A04B';
+  };
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    setDisplayAnswer(false);
-    setCorrect(false);
-    getRandomQuestion()
-      .then(res => {
-        setQuestion(res[0].question.toUpperCase());
-        setCategory(res[0].category.title.toUpperCase());
-        setValue(res[0].value);
-        setAnswer(res[0].answer)
-        ;});
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
 
   const handleSubmit = (e) => {
@@ -55,58 +51,56 @@ const Question = () => {
     if(compare === answer){
       setCorrect(true);
       setScore(score + value);
-      setTally(tally => ({ 
-        ...tally, 
-        correct: tally.correct + 1 
-      }));
     } else {
       setCorrect(false);
       setScore(score - value);
-      setTally(tally => ({ 
-        ...tally, 
-        incorrect: tally.incorrect + 1 
-      }));
     }
     setDisplayAnswer(true);
   };
 
-  console.log(answer, 'answer');
-  console.log(tally, 'tally');
-
   const handleChange = e => {
     setUserAnswer(e.target.value);
   };
-
+  
   return (
-    <div className={styles.QuestionCard}>
-      <div className={styles.topBar}>
-        <header className={styles.cardHeader}>
-          <h1 className={styles.value}>{'$' + value}</h1>
-          <div className={styles.tally}>
-            <p className={styles.score}>score: {'$' + score}</p> 
-          </div>
-        </header>
+    <>{!questionDisabled ? 
+      <li className={styles.Question} onClick={openModal}>{value}</li> 
+      : <li className={styles.Question}></li>}
+    <Modal
+      isOpen={modalIsOpen}
+      onAfterOpen={afterOpenModal}
+      onRequestClose={closeModal}
+      style={modalStyles}
+      contentLabel="Question"
+      //need to get this working
+      ariaHideApp={false}
+    >
+      <h2 ref={_subtitle => (subtitle = _subtitle)}>{value}</h2>
+      <div className={styles.questionFrame}>
+        <h2 className={styles.modalCategory}>{category}</h2>
+        <p className={styles.modalQuestion}>{question}</p>
+        <p className={styles.answer}>{displayAnswer ? answer : ''}<span>{correct ? ' ✓' : ''}</span></p>
       </div>
-      <div className={styles.topSubBar}></div>
-      <div className={styles.cardQuestion}>
-        <div className={styles.leftBar}></div>
-        <div className={styles.questionFrame}>
-          <h2 className={styles.category}>{category}</h2>
-          <p className={styles.question}>{question}</p>
-          <p className={styles.answer}>{displayAnswer ? answer : ''}<span>{correct ? ' ✓' : ''}</span></p>
-        </div>
-        <div className={styles.rightBar}></div>
-      </div>
-      <div className={styles.bottomBar}>
-        <footer className={styles.cardFooter}>
-          <form onSubmit={handleSubmit} className={styles.answerForm}>
-            <input className={styles.input} value={userAnswer || ''} onChange={handleChange}></input>
-            {userAnswer ? <button className={styles.submitButton}>submit</button> : <button className={styles.nextButton} onClick={handleClick}>next</button>}
-          </form>
-        </footer>
-      </div>
-    </div>
+      <form onSubmit={handleSubmit} className={styles.modalForm}>
+        <input 
+          placeholder={'Your answer here...'} 
+          value={userAnswer || ''} 
+          onChange={handleChange} />
+        <section className={styles.formButtons}>
+          <button className={styles.submitButton}>answer</button>
+          <button className={styles.passButton} onClick={closeModal}>pass</button>
+        </section>
+      </form>
+    </Modal>
+    </>
   );
+};
+
+Question.propTypes = {
+  question: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  answer: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired
 };
 
 export default Question;
