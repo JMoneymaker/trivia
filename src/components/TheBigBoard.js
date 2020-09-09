@@ -14,7 +14,7 @@ const TheBigBoard = () => {
     <div className={styles.TheBigBoard}>
       <div className={styles.boardHeader}>
         <header className={styles.statsContainer}>
-          <p className={styles.score}>score:{score}</p> 
+          <p className={styles.score}>score: $ {score}</p> 
         </header>
       </div>
       <div className={styles.boardMiddle}>
