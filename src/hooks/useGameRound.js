@@ -3,7 +3,7 @@ import { fetchCategoryById } from '../services/jservice';
 import { getRandomCategoryId, makeGameByRound } from '../data/getRandomCategoryIds';
 import validateCategory from '../data/categoryValidator';
 
-const useGameRound = (round) => {
+const useGameRound = round => {
   const [roundQuestions, setRoundQuestions] = useState([]);
   const [roundReady, setRoundReady] = useState(false);
 

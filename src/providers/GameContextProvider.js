@@ -4,7 +4,8 @@ import { GameContext } from '../hooks/useGameContext';
 // eslint-disable-next-line react/prop-types
 const GameProvider = ({ children }) => {
   const [score, setScore] = useState(0);
-  const value = { score, setScore };
+  const [round, setRound] = useState('single');
+  const value = { score, setScore, round, setRound };
 
   return (
     <GameContext.Provider value={value}>

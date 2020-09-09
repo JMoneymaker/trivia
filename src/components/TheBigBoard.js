@@ -5,8 +5,8 @@ import useGameRound from '../hooks/useGameRound';
 import { GameContext } from '../hooks/useGameContext';
 
 const TheBigBoard = () => {
-  const { score } = useContext(GameContext);
-  const [roundQuestions, roundReady] = useGameRound('single');
+  const { score, round } = useContext(GameContext);
+  const [roundQuestions, roundReady] = useGameRound(round);
 
   if(!roundReady) return <h1>Loading...</h1>;
 

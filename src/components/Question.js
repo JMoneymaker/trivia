@@ -30,9 +30,6 @@ const Question = ({ question, value, answer, category }) => {
   const fm = new FuzzyMatching([answer]);
   const [questionDisabled, setQuestionDisabled] = useState(false);
 
-  console.log(score, 'score');
-  console.log(correct);
-
   const openModal = () => {
     setModalIsOpen(true);
     setQuestionDisabled(true);
