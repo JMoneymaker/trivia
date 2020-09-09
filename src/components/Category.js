@@ -8,7 +8,7 @@ const Category = ({ questions }) => {
   return (
     <>
       <ul className={styles.CategoryGrid}>
-        <li className={styles.categoryTitle}>{questions[0].category.title}</li>
+        <li className={styles.categoryTitle}>{questions[0].category.title.trim()}</li>
         {questions.map(question => 
           <Question key={question.id} 
             question={question.question} 

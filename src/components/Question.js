@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
+const FuzzyMatching = require('fuzzy-matching');
 import styles from './Question.css';
+import { GameContext } from '../hooks/useGameContext';
 
 const modalStyles = {
   content : {
@@ -21,9 +23,19 @@ let subtitle;
 
 const Question = ({ question, value, answer, category }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [userAnswer, setUserAnswer] = useState('');
+  const [correct, setCorrect] = useState(false);
+  const [displayAnswer, setDisplayAnswer] = useState(false);
+  const { score, setScore } = useContext(GameContext);
+  const fm = new FuzzyMatching([answer]);
+  const [questionDisabled, setQuestionDisabled] = useState(false);
+
+  console.log(score, 'score');
+  console.log(correct);
 
   const openModal = () => {
     setModalIsOpen(true);
+    setQuestionDisabled(true);
   };
 
   const afterOpenModal = () => {
@@ -34,32 +46,55 @@ const Question = ({ question, value, answer, category }) => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setUserAnswer(e.target.value);
+    const compare = fm.get(userAnswer).value;
+    if(compare === answer){
+      setCorrect(true);
+      setScore(score + value);
+    } else {
+      setCorrect(false);
+      setScore(score - value);
+    }
+    setDisplayAnswer(true);
+  };
+
+  const handleChange = e => {
+    setUserAnswer(e.target.value);
+  };
   
   return (
-    <>
-      <li className={styles.Question} onClick={openModal}>{value}</li>
-      <Modal
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={modalStyles}
-        contentLabel="Question"
-        ariaHideApp={false}
-      >
-        <h2 ref={_subtitle => (subtitle = _subtitle)}>{value}</h2>
-        <div className={styles.questionFrame}>
-          <h2 className={styles.modalCategory}>{category}</h2>
-          <p className={styles.modalQuestion}>{question}</p>
-          <div className={styles.modalAnswer}>{answer}</div>
-        </div>
-        <form className={styles.modalForm}>
-          <input placeholder={'Your answer here...'}/>
-          <section className={styles.formButtons}>
-            <button className={styles.submitButton}>answer</button>
-            <button className={styles.passButton} onClick={closeModal}>pass</button>
-          </section>
-        </form>
-      </Modal>
+    <>{!questionDisabled ? 
+      <li className={styles.Question} onClick={openModal}>{value}</li> 
+      : <li className={styles.Question}></li>}
+    <Modal
+      isOpen={modalIsOpen}
+      onAfterOpen={afterOpenModal}
+      onRequestClose={closeModal}
+      style={modalStyles}
+      contentLabel="Question"
+      //need to get this working
+      ariaHideApp={false}
+    >
+      <h2 ref={_subtitle => (subtitle = _subtitle)}>{value}</h2>
+      <div className={styles.questionFrame}>
+        <h2 className={styles.modalCategory}>{category}</h2>
+        <p className={styles.modalQuestion}>{question}</p>
+        <p className={styles.answer}>{displayAnswer ? answer : ''}<span>{correct ? ' ✓' : ''}</span></p>
+      </div>
+      <form onSubmit={handleSubmit} className={styles.modalForm}>
+        <input 
+          placeholder={'Your answer here...'} 
+          value={userAnswer || ''} 
+          onChange={handleChange} />
+        <section className={styles.formButtons}>
+          <button className={styles.submitButton}>answer</button>
+          <button className={styles.passButton} onClick={closeModal}>pass</button>
+        </section>
+      </form>
+    </Modal>
     </>
   );
 };

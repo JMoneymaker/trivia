@@ -97,7 +97,7 @@ const Question = () => {
         <footer className={styles.cardFooter}>
           <form onSubmit={handleSubmit} className={styles.answerForm}>
             <input className={styles.input} value={userAnswer || ''} onChange={handleChange}></input>
-            {userAnswer ? <button className={styles.submitButton}>submit</button> : <button className={styles.nextButton} onClick={handleClick}>next</button>}
+            {userAnswer ? <button className={styles.submitButton}>submit</button> : <button className={styles.passButton} onClick={handleClick}>next</button>}
           </form>
         </footer>
       </div>
